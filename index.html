@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finance DT Weekly Plan</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="details.css?v=4" />
+  <link rel="stylesheet" href="details.css?v=8" />
   <link rel="stylesheet" href="calendar.css?v=6" />
   <link rel="stylesheet" href="dashboard.css?v=20260903-3" /><link rel="stylesheet" href="demo.css" />
 </head>
@@ -61,13 +61,14 @@
     <div class="drawer-head"><div><p class="eyebrow">PLAN ITEM</p><h2 id="drawerTitle">Edit item</h2></div><button id="closeDrawer">×</button></div>
     <form id="rowForm"><div id="formFields"></div><div class="drawer-actions"><button type="button" id="deleteRow" class="danger">Delete</button><span></span><button type="button" id="cancelRow">Cancel</button><button type="submit" class="primary">Save</button></div></form>
   </aside>
-  <div class="tab-menu" id="tabMenu"><button id="renameTab">✎ Rename</button><button id="duplicateTab">▣ Duplicate</button><button id="deleteTab" class="delete-tab">⌫ Delete</button></div>
+  <div class="tab-menu" id="tabMenu"><button id="renameTab">✎ Rename</button><button id="duplicateTab">▣ Duplicate</button><button id="moveTabLeft">← Move page left</button><button id="moveTabRight">→ Move page right</button><button id="deleteTab" class="delete-tab">⌫ Delete</button></div>
   <div class="row-menu" id="rowMenu"><button id="contextEdit">✎ Edit row</button><button id="contextDuplicate">▣ Duplicate row</button><button id="contextDelete" class="delete-row-action">⌫ Delete row</button></div>
   <div class="column-menu" id="columnMenu"><button id="addColumn">＋ Add column</button><button id="renameColumn">✎ Rename column</button><button id="duplicateColumn">▣ Duplicate column</button><button id="moveColumnLeft">← Move left</button><button id="moveColumnRight">→ Move right</button><button id="deleteColumn" class="delete-column-action">⌫ Delete column</button></div>
   <dialog id="todoDialog" class="todo-dialog"><form id="todoForm"><button type="button" class="x" id="closeTodo">×</button><p class="eyebrow">DAILY PLAN</p><h2 id="todoDialogTitle">Add Todo</h2><label>Title<input name="title" required placeholder="What needs to be done?"></label><label>Details<textarea name="details" placeholder="Notes or desired outcome"></textarea></label><label>Status<select name="status"><option>Not Started</option><option>WIP</option><option>Done</option></select></label><label>Link <span class="optional">Optional</span><input name="link" type="url" placeholder="https://example.com/document"></label><div class="daily-sync-hint">After saving, use <b>Sync to Weekly Plan</b> on the Todo to add Category, Owner, dates, Status, and other weekly details.</div><div class="dialog-actions"><button type="button" id="deleteTodo" class="todo-delete">Delete</button><span></span><button type="button" id="cancelTodo">Cancel</button><button class="primary" type="submit" id="saveTodo">Add Todo</button></div></form></dialog>
+  <dialog id="newPageDialog" class="new-page-dialog"><form id="newPageForm"><button type="button" class="x" id="closeNewPage">×</button><p class="eyebrow">WEEKLY PAGE</p><h2>Create a new page</h2><label>Page name<input name="pageName" required placeholder="For example: W3"></label><div class="page-date-note"><b>Automatic week dates</b><span>If the name follows W# (such as W3), its date range will continue automatically from your existing weekly pages.</span><small id="newPageDatePreview"></small></div><div class="dialog-actions"><button type="button" id="cancelNewPage">Cancel</button><button class="primary" type="submit">Create page</button></div></form></dialog>
   <dialog id="monthPicker" class="month-picker"><form method="dialog"><button class="x" value="cancel">×</button><p class="eyebrow">GO TO DATE</p><h2>Choose month and year</h2><div class="wheel-picker"><label>Month<select id="monthWheel" size="5"></select></label><label>Year<select id="yearWheel" size="5"></select></label></div><div class="dialog-actions"><button value="cancel">Cancel</button><button value="default" id="applyMonth" class="primary">Apply</button></div></form></dialog>
   <dialog id="privacyDialog"><form method="dialog"><button class="x">×</button><p class="eyebrow">AI & DATA</p><h2>Privacy settings</h2><label class="toggleline"><span><b>Use connected AI</b><small>Send the current visible sheet to your company-controlled server.</small></span><input id="remoteToggle" type="checkbox" disabled></label><div class="policy"><b>Recommended production setup</b><p>Keep the API key on the server, use SSO and role-based access, send only necessary rows, disable model response storage, and confirm your company’s retention requirements.</p></div><button class="primary" value="default">Done</button></form></dialog>
   <script src="vendor/exceljs.min.js"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

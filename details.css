@@ -92,6 +92,7 @@ button, .button, label[for], select, tbody tr, .resize-handle, input[type="check
 .tab-menu button { border: 0; background: #fff; padding: 9px 10px; text-align: left; border-radius: 5px; }
 .tab-menu button:hover { background: #fff1f1; color: var(--red); }
 .tab-menu .delete-tab { color: #b51218; border-top: 1px solid var(--line); border-radius: 0 0 5px 5px; margin-top: 4px; }
+.new-page-dialog { width: min(440px,92vw); }.new-page-dialog form { display: flex; flex-direction: column; gap: 16px; }.new-page-dialog label { display: flex; flex-direction: column; gap: 7px; font-size: 12px; font-weight: 700; }.new-page-dialog input { border: 1px solid #cfd3d8; border-radius: 7px; padding: 11px; }.page-date-note { display: flex; flex-direction: column; gap: 5px; padding: 12px; border-left: 3px solid #1769c2; border-radius: 6px; color: #4f5963; background: #f2f7fc; line-height: 1.45; }.page-date-note span { font-size: 12px; }.page-date-note small { color: #1769c2; font-weight: 700; }
 .rail .ai-launch { height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
 .rail .ai-launch b { font-size: 19px; line-height: 19px; }
 .rail .ai-launch small { font-size: 9px; font-weight: 800; letter-spacing: .08em; }
