@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finance DT Weekly Plan</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="details.css" />
-  <link rel="stylesheet" href="calendar.css" />
+  <link rel="stylesheet" href="details.css?v=4" />
+  <link rel="stylesheet" href="calendar.css?v=4" />
   <link rel="stylesheet" href="dashboard.css?v=20260903-3" /><link rel="stylesheet" href="demo.css" />
 </head>
 <body><div class="demo-banner">公开测试版 · 仅使用示例数据 · 请勿输入机密信息</div>
@@ -38,7 +38,7 @@
         <div class="search">⌕ <input id="search" placeholder="搜索任务、负责人或备注……" /></div>
         <select id="statusFilter"><option value="">全部状态</option><option>完成</option><option>WIP</option><option>Not Started</option></select>
         <button id="exportBtn">⇩ 导出 Excel</button><label class="button">⇧ 导入 Excel<input id="importInput" type="file" accept=".xlsx,.xls" hidden></label>
-        <button id="editBtn">✎ 编辑行</button><button id="addBtn" class="primary">＋ 新建项目</button>
+        <button id="columnsBtn">▥ 列管理</button><button id="editBtn">✎ 编辑行</button><button id="addBtn" class="primary">＋ 新建项目</button>
         <div class="zoom-control" title="Pinch trackpad or Ctrl/Command + scroll to zoom"><button id="zoomOut" aria-label="Zoom out">−</button><input id="zoomRange" type="range" min="60" max="140" step="5"><button id="zoomIn" aria-label="Zoom in">＋</button><button id="zoomValue" title="Reset zoom">100%</button></div>
       </div>
       <section class="sheet" id="sheet">
@@ -63,10 +63,11 @@
   </aside>
   <div class="tab-menu" id="tabMenu"><button id="renameTab">✎ 重命名</button><button id="duplicateTab">▣ 复制</button><button id="deleteTab" class="delete-tab">⌫ Delete</button></div>
   <div class="row-menu" id="rowMenu"><button id="contextEdit">✎ 编辑行</button><button id="contextDuplicate">▣ 复制行</button><button id="contextDelete" class="delete-row-action">⌫ 删除行</button></div>
+  <div class="column-menu" id="columnMenu"><button id="addColumn">＋ 添加列</button><button id="renameColumn">✎ 重命名列</button><button id="duplicateColumn">▣ 复制列</button><button id="moveColumnLeft">← 左移</button><button id="moveColumnRight">→ 右移</button><button id="deleteColumn" class="delete-column-action">⌫ 删除列</button></div>
   <dialog id="todoDialog" class="todo-dialog"><form id="todoForm"><button type="button" class="x" id="closeTodo">×</button><p class="eyebrow">每日计划</p><h2 id="todoDialogTitle">添加待办</h2><label>标题<input name="title" required placeholder="需要完成什么？"></label><label>详情<textarea name="details" placeholder="备注或期望结果"></textarea></label><label>Status<select name="status"><option>Not Started</option><option>WIP</option><option>完成</option></select></label><label>Link <span class="optional">选填</span><input name="link" type="url" placeholder="https://example.com/document"></label><div class="daily-sync-hint">保存后，可点击待办上的<b>同步到周计划</b>，继续填写类别、负责人、日期和状态等信息。</div><div class="dialog-actions"><button type="button" id="deleteTodo" class="todo-delete">删除</button><span></span><button type="button" id="cancelTodo">取消</button><button class="primary" type="submit" id="saveTodo">添加待办</button></div></form></dialog>
   <dialog id="monthPicker" class="month-picker"><form method="dialog"><button class="x" value="cancel">×</button><p class="eyebrow">跳转日期</p><h2>选择月份和年份</h2><div class="wheel-picker"><label>月份<select id="monthWheel" size="5"></select></label><label>年份<select id="yearWheel" size="5"></select></label></div><div class="dialog-actions"><button value="cancel">取消</button><button value="default" id="applyMonth" class="primary">应用</button></div></form></dialog>
   <dialog id="privacyDialog"><form method="dialog"><button class="x">×</button><p class="eyebrow">AI 与数据</p><h2>隐私设置</h2><label class="toggleline"><span><b>使用已连接的 AI</b><small>将当前可见页面发送至公司管理的服务器。</small></span><input id="remoteToggle" type="checkbox" disabled></label><div class="policy"><b>建议的正式环境配置</b><p>API 密钥应仅保存在服务器端；启用 SSO 和角色权限；只发送必要数据；关闭模型响应存储，并确认公司的数据保留要求。</p></div><button class="primary" value="default">完成</button></form></dialog>
   <script src="vendor/exceljs.min.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
