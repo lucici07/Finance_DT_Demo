@@ -8,4 +8,19 @@
 .category-row { margin-bottom: 13px; }.category-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }.category-bar { height: 7px; border-radius: 8px; background: #eceeef; overflow: hidden; }.category-bar i { display: block; height: 100%; border-radius: 8px; background: var(--red); }
 .attention-item { display: grid; grid-template-columns: 8px 1fr auto; gap: 9px; padding: 10px 0; border-bottom: 1px solid #eff0f1; }.attention-item i { width: 7px; height: 7px; margin-top: 5px; border-radius: 50%; background: #e19a00; }.attention-item b { font-size: 12px; }.attention-item small { color: #858a8f; }.empty-state { color: #8a8f94; padding: 35px 0; text-align: center; }
 .health-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; border-radius: 7px; background: #f6f7f8; }.health-row span { color: #64696e; }.health-row b { font-size: 17px; }.health-row.good b { color: #178b50; }.health-row.warn b { color: #c67b00; }
+.dashboard-print-meta { display: none; margin: 5px 0 0; color: #6f7479; font-size: 11px; }
 @media(max-width:1050px){.dashboard-cards{grid-template-columns:repeat(3,1fr)}.dashboard-grid{grid-template-columns:1fr}}
+@media print {
+  @page { size: landscape; margin: 12mm; }
+  body.dashboard-printing { background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body.dashboard-printing .topbar, body.dashboard-printing .rail, body.dashboard-printing #weeklyView, body.dashboard-printing #calendarView, body.dashboard-printing .agent, body.dashboard-printing dialog, body.dashboard-printing .drawer-backdrop, body.dashboard-printing .edit-drawer { display: none !important; }
+  body.dashboard-printing .app { display: block; height: auto !important; }
+  body.dashboard-printing #dashboardView { display: block !important; height: auto; overflow: visible; background: #fff; }
+  body.dashboard-printing .dashboard-toolbar { height: auto; padding: 0 0 12px; border-bottom: 2px solid #d71920; }
+  body.dashboard-printing .dashboard-toolbar label, body.dashboard-printing .dashboard-toolbar button { display: none; }
+  body.dashboard-printing .dashboard-print-meta { display: block; }
+  body.dashboard-printing .dashboard-scroll { height: auto; overflow: visible; padding: 14px 0 0; }
+  body.dashboard-printing .dashboard-cards { grid-template-columns: repeat(5,1fr); break-inside: avoid; }
+  body.dashboard-printing .dashboard-grid { grid-template-columns: 1fr 1fr; }
+  body.dashboard-printing .dash-card, body.dashboard-printing .dash-panel { break-inside: avoid; box-shadow: none; }
+}
