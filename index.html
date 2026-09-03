@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="details.css?v=10" />
   <link rel="stylesheet" href="calendar.css?v=6" />
-  <link rel="stylesheet" href="dashboard.css?v=20260903-3" /><link rel="stylesheet" href="demo.css" />
+  <link rel="stylesheet" href="dashboard.css?v=11" /><link rel="stylesheet" href="demo.css" />
 </head>
 <body><div class="demo-banner">PUBLIC TEST DEMO · Use sample data only · Do not enter confidential information</div>
   <header class="topbar">
@@ -52,7 +52,7 @@
       <div class="calendar-layout"><section class="calendar-card"><div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-grid" id="calendarGrid"></div></section><aside class="day-panel"><div class="day-heading"><div><p class="eyebrow">SELECTED DAY</p><h2 id="selectedDateTitle"></h2></div><button id="addTodo" class="primary">＋ Add Todo</button></div><div id="todoList" class="todo-list"></div></aside></div>
     </main>
     <main id="dashboardView" class="dashboard-view hidden">
-      <div class="dashboard-toolbar"><div><p class="eyebrow">OVERVIEW</p><h2>Weekly Dashboard</h2><p id="dashboardPrintMeta" class="dashboard-print-meta"></p></div><label>Week<select id="dashboardWeek"></select></label><button id="dashboardExportPdf">⇩ Export PDF</button><button id="dashboardRefresh">↻ Refresh</button></div>
+      <div class="dashboard-toolbar"><div><p class="eyebrow">OVERVIEW</p><h2>Weekly Dashboard</h2><p id="dashboardDateRange" class="dashboard-date-range"></p><p id="dashboardPrintMeta" class="dashboard-print-meta"></p></div><label>Week<select id="dashboardWeek"></select></label><button id="dashboardExportPdf">⇩ Export PDF</button><button id="dashboardRefresh">↻ Refresh</button></div>
       <div class="dashboard-scroll"><section class="dashboard-cards" id="dashboardCards"></section><section class="dashboard-grid"><article class="dash-panel"><div class="panel-head"><h3>Status Overview</h3><span id="weekComparison"></span></div><div id="statusOverview"></div></article><article class="dash-panel"><div class="panel-head"><h3>Category Breakdown</h3></div><div id="categoryBreakdown"></div></article><article class="dash-panel"><div class="panel-head"><h3>Attention Needed</h3></div><div id="attentionList"></div></article><article class="dash-panel"><div class="panel-head"><h3>Daily & Sync Health</h3></div><div id="dailyHealth"></div></article></section></div>
     </main>
   </div>
@@ -69,6 +69,6 @@
   <dialog id="monthPicker" class="month-picker"><form method="dialog"><button class="x" value="cancel">×</button><p class="eyebrow">GO TO DATE</p><h2>Choose month and year</h2><div class="wheel-picker"><label>Month<select id="monthWheel" size="5"></select></label><label>Year<select id="yearWheel" size="5"></select></label></div><div class="dialog-actions"><button value="cancel">Cancel</button><button value="default" id="applyMonth" class="primary">Apply</button></div></form></dialog>
   <dialog id="privacyDialog"><form method="dialog"><button class="x">×</button><p class="eyebrow">AI & DATA</p><h2>Privacy settings</h2><label class="toggleline"><span><b>Use connected AI</b><small>Send the current visible sheet to your company-controlled server.</small></span><input id="remoteToggle" type="checkbox" disabled></label><div class="policy"><b>Recommended production setup</b><p>Keep the API key on the server, use SSO and role-based access, send only necessary rows, disable model response storage, and confirm your company’s retention requirements.</p></div><button class="primary" value="default">Done</button></form></dialog>
   <script src="vendor/exceljs.min.js"></script>
-  <script src="app.js?v=10"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
