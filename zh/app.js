@@ -1,132 +1,23 @@
 const seed = {
-  "W1": [
-    [
-      1,
-      "Product Discovery",
-      "Stakeholder Interviews",
-      "Interview sample users and document their planning needs.",
-      "Alex",
-      "2026-08-24",
-      "2026-08-26",
-      "2026-08-24",
-      "已完成",
-      "Summarize findings.",
-      "Demo data only."
-    ],
-    [
-      2,
-      "Prototype",
-      "Wireframe Review",
-      "Review the first planner wireframe with the demo team.",
-      "Jordan",
-      "2026-08-25",
-      "2026-08-28",
-      "2026-08-25",
-      "进行中",
-      "Collect feedback and revise.",
-      "No confidential information."
-    ],
-    [
-      3,
-      "Operations",
-      "Access Checklist",
-      "Confirm sample environment access and onboarding steps.",
-      "Taylor",
-      "2026-08-26",
-      "2026-08-28",
-      "2026-08-26",
-      "未开始",
-      "Complete the checklist.",
-      "Demo task."
-    ]
-  ],
   "W2": [
     [
       1,
-      "Prototype",
-      "Interactive Demo",
-      "Build and test the interactive weekly planner demo.",
-      "Alex",
-      "2026-08-31",
-      "2026-09-04",
+      "演示类别",
+      "周计划示例任务",
+      "使用这一行演示编辑、状态更新、日历同步和数据看板。",
+      "Demo User",
       "2026-09-01",
-      "进行中",
-      "Finish usability testing.",
-      "Public sample content."
-    ],
-    [
-      2,
-      "Product Discovery",
-      "Feedback Review",
-      "Organize feedback from sample users.",
-      "Jordan",
-      "2026-08-31",
+      "2026-09-04",
       "2026-09-03",
-      "2026-09-01",
-      "已完成",
-      "Share the summary.",
-      "Demo data only."
-    ],
-    [
-      3,
-      "Communication",
-      "Team Update",
-      "Prepare a short weekly progress update.",
-      "Taylor",
-      "2026-09-01",
-      "2026-09-04",
-      "2026-09-01",
-      "未开始",
-      "Draft the update.",
-      "Use fictional information."
-    ],
-    [
-      4,
-      "Quality",
-      "Demo Testing",
-      "Test Calendar, Dashboard, Excel export, and sync behavior.",
-      "Alex",
-      "2026-09-01",
-      "2026-09-04",
-      "2026-09-02",
       "进行中",
-      "Record test results.",
-      "Public test scenario."
-    ]
-  ],
-  "Next 3 Weeks": [
-    [
-      1,
-      "Prototype",
-      "Iteration Planning",
-      "Prioritize improvements for the next demo iteration.",
-      "Alex / Jordan",
-      "High",
-      "未开始"
-    ],
-    [
-      2,
-      "Quality",
-      "Regression Testing",
-      "Retest the main weekly and daily planning workflows.",
-      "Taylor",
-      "Medium",
-      "未开始"
-    ],
-    [
-      3,
-      "Communication",
-      "Demo Presentation",
-      "Prepare a sample presentation for reviewers.",
-      "Demo Team",
-      "Medium",
-      "未开始"
+      "更新这条示例或添加新项目。",
+      "仅限公开示例数据。"
     ]
   ]
 };
 const weeklyHeaders=["No.","Category","Topic","Content","Focal Name","Date","Due Date","Last Update","Status","Next Action","Note"];
 const futureHeaders=["No.","Category","Topic","Content","Focal Name","Priority","Status"];
-localStorage.getItem("demoVersionZh")||localStorage.setItem("demoVersionZh","1");
+const demoVersion="3";if(localStorage.getItem("demoVersionZh")!==demoVersion){["financePlanDemoZh","dailyPlansDemoZh","futureSheetsDemoZh","pageMetaDemoZh"].forEach(key=>localStorage.removeItem(key));localStorage.setItem("demoVersionZh",demoVersion)}
 let data=JSON.parse(localStorage.getItem("financePlanDemoZh")||"null")||seed, active="W2", selectedRow=null, editingRow=null, menuSheet=null, contextRow=null;
 let futureSheets=new Set(JSON.parse(localStorage.getItem("futureSheetsDemoZh")||'["Next 3 Weeks"]'));
 let dailyPlans=JSON.parse(localStorage.getItem("dailyPlansDemoZh")||"{}");

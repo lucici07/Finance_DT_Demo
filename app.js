@@ -1,132 +1,23 @@
 const seed = {
-  "W1": [
-    [
-      1,
-      "Product Discovery",
-      "Stakeholder Interviews",
-      "Interview sample users and document their planning needs.",
-      "Alex",
-      "2026-08-24",
-      "2026-08-26",
-      "2026-08-24",
-      "Done",
-      "Summarize findings.",
-      "Demo data only."
-    ],
-    [
-      2,
-      "Prototype",
-      "Wireframe Review",
-      "Review the first planner wireframe with the demo team.",
-      "Jordan",
-      "2026-08-25",
-      "2026-08-28",
-      "2026-08-25",
-      "WIP",
-      "Collect feedback and revise.",
-      "No confidential information."
-    ],
-    [
-      3,
-      "Operations",
-      "Access Checklist",
-      "Confirm sample environment access and onboarding steps.",
-      "Taylor",
-      "2026-08-26",
-      "2026-08-28",
-      "2026-08-26",
-      "Not Started",
-      "Complete the checklist.",
-      "Demo task."
-    ]
-  ],
   "W2": [
     [
       1,
-      "Prototype",
-      "Interactive Demo",
-      "Build and test the interactive weekly planner demo.",
-      "Alex",
-      "2026-08-31",
-      "2026-09-04",
+      "Demo Category",
+      "Sample Weekly Task",
+      "Use this row to demonstrate editing, status updates, Calendar sync, and Dashboard reporting.",
+      "Demo User",
       "2026-09-01",
-      "WIP",
-      "Finish usability testing.",
-      "Public sample content."
-    ],
-    [
-      2,
-      "Product Discovery",
-      "Feedback Review",
-      "Organize feedback from sample users.",
-      "Jordan",
-      "2026-08-31",
+      "2026-09-04",
       "2026-09-03",
-      "2026-09-01",
-      "Done",
-      "Share the summary.",
-      "Demo data only."
-    ],
-    [
-      3,
-      "Communication",
-      "Team Update",
-      "Prepare a short weekly progress update.",
-      "Taylor",
-      "2026-09-01",
-      "2026-09-04",
-      "2026-09-01",
-      "Not Started",
-      "Draft the update.",
-      "Use fictional information."
-    ],
-    [
-      4,
-      "Quality",
-      "Demo Testing",
-      "Test Calendar, Dashboard, Excel export, and sync behavior.",
-      "Alex",
-      "2026-09-01",
-      "2026-09-04",
-      "2026-09-02",
       "WIP",
-      "Record test results.",
-      "Public test scenario."
-    ]
-  ],
-  "Next 3 Weeks": [
-    [
-      1,
-      "Prototype",
-      "Iteration Planning",
-      "Prioritize improvements for the next demo iteration.",
-      "Alex / Jordan",
-      "High",
-      "Not Started"
-    ],
-    [
-      2,
-      "Quality",
-      "Regression Testing",
-      "Retest the main weekly and daily planning workflows.",
-      "Taylor",
-      "Medium",
-      "Not Started"
-    ],
-    [
-      3,
-      "Communication",
-      "Demo Presentation",
-      "Prepare a sample presentation for reviewers.",
-      "Demo Team",
-      "Medium",
-      "Not Started"
+      "Update this sample or add a new item.",
+      "Public sample data only."
     ]
   ]
 };
 const weeklyHeaders=["No.","Category","Topic","Content","Focal Name","Date","Due Date","Last Update","Status","Next Action","Note"];
 const futureHeaders=["No.","Category","Topic","Content","Focal Name","Priority","Status"];
-localStorage.getItem("demoVersion")||localStorage.setItem("demoVersion","1");
+const demoVersion="3";if(localStorage.getItem("demoVersion")!==demoVersion){["financePlanDemo","dailyPlansDemo","futureSheetsDemo","pageMetaDemo"].forEach(key=>localStorage.removeItem(key));localStorage.setItem("demoVersion",demoVersion)}
 let data=JSON.parse(localStorage.getItem("financePlanDemo")||"null")||seed, active="W2", selectedRow=null, editingRow=null, menuSheet=null, contextRow=null;
 let futureSheets=new Set(JSON.parse(localStorage.getItem("futureSheetsDemo")||'["Next 3 Weeks"]'));
 let dailyPlans=JSON.parse(localStorage.getItem("dailyPlansDemo")||"{}");
