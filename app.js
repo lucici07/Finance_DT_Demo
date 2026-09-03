@@ -4,7 +4,7 @@ const seed = {
 };
 const weeklyHeaders=["No.","Category","Topic","Content","Focal Name","Date","Due Date","Last Update","Status","Next Action","Note"];
 const futureHeaders=["No.","Category","Topic","Content","Focal Name","Priority","Status","Start Date","Due Date","Last Update"];
-let data=JSON.parse(localStorage.getItem("financePlan")||"null")||structuredClone(seed), active="W1", selectedRow=null, selectedCell=null, editingRow=null, menuSheet=null, contextRow=null, contextColumn=null;
+let data=JSON.parse(localStorage.getItem("financePlanDemo")||"null")||structuredClone(seed), active="W1", selectedRow=null, selectedCell=null, editingRow=null, menuSheet=null, contextRow=null, contextColumn=null;
 let futureSheets=new Set(JSON.parse(localStorage.getItem("futureSheetsDemo")||'["Next 3 Weeks"]'));
 let dailyPlans=JSON.parse(localStorage.getItem("dailyPlansDemo")||"{}");
 let pageMeta=JSON.parse(localStorage.getItem("pageMetaDemo")||"{}");
