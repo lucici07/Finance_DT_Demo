@@ -26,15 +26,15 @@
   body.dashboard-printing .dash-card { padding: 8px 10px; border-radius: 6px; }
   body.dashboard-printing .dash-card span { font-size: 8px; }
   body.dashboard-printing .dash-card b { margin-top: 2px; font-size: 18px; }
-  body.dashboard-printing .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
+  body.dashboard-printing .dashboard-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px; align-items: start; }
   body.dashboard-printing .dash-card, body.dashboard-printing .dash-panel { break-inside: avoid; box-shadow: none; }
   body.dashboard-printing .dash-panel { min-height: 0; padding: 9px 11px; border-radius: 6px; }
   body.dashboard-printing .panel-head { padding-bottom: 6px; margin-bottom: 7px; }
   body.dashboard-printing .panel-head h3 { font-size: 11px; }
   body.dashboard-printing .panel-head span { font-size: 8px; }
-  body.dashboard-printing .status-layout { gap: 16px; }
-  body.dashboard-printing .status-donut { width: 82px; height: 82px; }
-  body.dashboard-printing .status-donut::after { width: 49px; height: 49px; }
+  body.dashboard-printing .status-layout { gap: 7px; }
+  body.dashboard-printing .status-donut { width: 56px; height: 56px; flex: 0 0 56px; }
+  body.dashboard-printing .status-donut::after { width: 34px; height: 34px; }
   body.dashboard-printing .status-legend { gap: 5px; }
   body.dashboard-printing .legend-row, body.dashboard-printing .category-label, body.dashboard-printing .attention-item, body.dashboard-printing .health-row { font-size: 9px; }
   body.dashboard-printing .category-row { margin-bottom: 6px; }
