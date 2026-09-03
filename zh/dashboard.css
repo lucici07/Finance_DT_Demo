@@ -11,16 +11,37 @@
 .dashboard-print-meta { display: none; margin: 5px 0 0; color: #6f7479; font-size: 11px; }
 @media(max-width:1050px){.dashboard-cards{grid-template-columns:repeat(3,1fr)}.dashboard-grid{grid-template-columns:1fr}}
 @media print {
-  @page { size: landscape; margin: 12mm; }
+  @page { size: landscape; margin: 7mm; }
   body.dashboard-printing { background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   body.dashboard-printing .topbar, body.dashboard-printing .rail, body.dashboard-printing #weeklyView, body.dashboard-printing #calendarView, body.dashboard-printing .agent, body.dashboard-printing dialog, body.dashboard-printing .drawer-backdrop, body.dashboard-printing .edit-drawer { display: none !important; }
   body.dashboard-printing .app { display: block; height: auto !important; }
   body.dashboard-printing #dashboardView { display: block !important; height: auto; overflow: visible; background: #fff; }
-  body.dashboard-printing .dashboard-toolbar { height: auto; padding: 0 0 12px; border-bottom: 2px solid #d71920; }
+  body.dashboard-printing .dashboard-toolbar { height: auto; padding: 0 0 7px; border-bottom: 2px solid #d71920; }
+  body.dashboard-printing .dashboard-toolbar h2 { font-size: 18px; margin-top: 1px; }
+  body.dashboard-printing .dashboard-toolbar .eyebrow { font-size: 8px; }
   body.dashboard-printing .dashboard-toolbar label, body.dashboard-printing .dashboard-toolbar button { display: none; }
   body.dashboard-printing .dashboard-print-meta { display: block; }
-  body.dashboard-printing .dashboard-scroll { height: auto; overflow: visible; padding: 14px 0 0; }
-  body.dashboard-printing .dashboard-cards { grid-template-columns: repeat(5,1fr); break-inside: avoid; }
-  body.dashboard-printing .dashboard-grid { grid-template-columns: 1fr 1fr; }
+  body.dashboard-printing .dashboard-scroll { height: auto; overflow: visible; padding: 8px 0 0; }
+  body.dashboard-printing .dashboard-cards { grid-template-columns: repeat(5,1fr); gap: 7px; margin-bottom: 7px; break-inside: avoid; }
+  body.dashboard-printing .dash-card { padding: 8px 10px; border-radius: 6px; }
+  body.dashboard-printing .dash-card span { font-size: 8px; }
+  body.dashboard-printing .dash-card b { margin-top: 2px; font-size: 18px; }
+  body.dashboard-printing .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
   body.dashboard-printing .dash-card, body.dashboard-printing .dash-panel { break-inside: avoid; box-shadow: none; }
+  body.dashboard-printing .dash-panel { min-height: 0; padding: 9px 11px; border-radius: 6px; }
+  body.dashboard-printing .panel-head { padding-bottom: 6px; margin-bottom: 7px; }
+  body.dashboard-printing .panel-head h3 { font-size: 11px; }
+  body.dashboard-printing .panel-head span { font-size: 8px; }
+  body.dashboard-printing .status-layout { gap: 16px; }
+  body.dashboard-printing .status-donut { width: 82px; height: 82px; }
+  body.dashboard-printing .status-donut::after { width: 49px; height: 49px; }
+  body.dashboard-printing .status-legend { gap: 5px; }
+  body.dashboard-printing .legend-row, body.dashboard-printing .category-label, body.dashboard-printing .attention-item, body.dashboard-printing .health-row { font-size: 9px; }
+  body.dashboard-printing .category-row { margin-bottom: 6px; }
+  body.dashboard-printing .category-bar { height: 5px; }
+  body.dashboard-printing .attention-item { gap: 6px; padding: 5px 0; }
+  body.dashboard-printing .attention-item b { font-size: 9px; }
+  body.dashboard-printing .health-row { padding: 6px 8px; margin-bottom: 4px; }
+  body.dashboard-printing .health-row b { font-size: 12px; }
+  body.dashboard-printing .empty-state { padding: 16px 0; }
 }
