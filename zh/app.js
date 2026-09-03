@@ -57,6 +57,7 @@ function linkify(value){const text=esc(value);return text.replace(/https?:\/\/[^
 function dailyIdFromRow(row,sheet=active){return String(cell(row,"Note",sheet)||"").match(/\[Daily:([^\]]+)\]/)?.[1]||""}
 function findDailyById(id){for(const [date,todos] of Object.entries(dailyPlans))for(const todo of todos)if(todo.syncId===id)return {date,todo};return null}
 function isDailyOrphan(row){const id=dailyIdFromRow(row);return Boolean(id&&!findDailyById(id))}
+function currentWorkWeekTitle(){const localToday=new Date(),weekday=(localToday.getDay()+6)%7,monday=new Date(localToday.getFullYear(),localToday.getMonth(),localToday.getDate()-weekday),friday=new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+4),format=new Intl.DateTimeFormat(undefined,{month:"short",day:"numeric"});return `Week 1 · ${format.format(monday)} – ${format.format(friday)}`}
 function restoreDailyFromRow(row){const id=dailyIdFromRow(row);if(!id)return;const date=String(cell(row,"Date")||"").slice(0,10)||dateKey(today),note=String(cell(row,"Note")||""),link=note.match(/https?:\/\/[^\s·]+/)?.[0]||"",status=String(cell(row,"Status")||"未开始");(dailyPlans[date]??=[]).push({title:String(cell(row,"Topic")),details:String(cell(row,"Content")),link,category:String(cell(row,"Category")),owner:String(cell(row,"Focal Name")),status,completed:status==="已完成",syncedTo:active,syncId:id});save();render();alert(`Todo restored to ${date}.`)}
 function render(){
   const hs=headers(), si=statusIndex(), q=$("#search").value.toLowerCase(), sf=$("#statusFilter").value;
@@ -65,7 +66,7 @@ function render(){
   tbody.innerHTML=rows.map(r=>`<tr data-row="${data[active].indexOf(r)}" class="${isDailyOrphan(r)?"daily-orphan":""}">${r.slice(0,hs.length).map((v,ci)=>{const h=hs[ci],priority=h==="Priority"?` priority-cell priority-${String(v).toLowerCase()}`:"";return `<td class="${priority}">${["Date","Due Date","Last Update"].includes(h)?`<span class="date-chip">${esc(v)}</span>`:ci===si?badge(v):h==="Note"?`${linkify(v)}${isDailyOrphan(r)?'<span class="orphan-label">Daily Todo removed</span>':""}`:esc(v)}</td>`}).join("")}</tr>`).join("");
   const all=data[active], done=all.filter(r=>r[si]==="已完成").length;
   $("#metrics").innerHTML=`<div class="metric"><b>${all.length}</b><span>items</span></div><div class="metric"><b>${done}</b><span>done</span></div>`;
-  $("#sheetTitle").textContent=active==="W1"?"Week 1 · Aug 24 – Aug 28":active==="W2"?"Week 2 · Aug 31 – Sep 4":active;
+  $("#sheetTitle").textContent=active==="W1"?currentWorkWeekTitle():active==="W2"?"Week 2 · Aug 31 – Sep 4":active;
   if(si<0)$("#statusFilter").value="";$("#statusFilter").disabled=si<0;
   document.querySelectorAll("tbody tr[data-row]").forEach(row=>{row.onclick=()=>{selectedRow=+row.dataset.row;const item=data[active][selectedRow];if(isDailyOrphan(item)){if(confirm("The linked Daily Todo was deleted. Add it back to Calendar?"))restoreDailyFromRow(item);return}openDrawer(selectedRow)};row.oncontextmenu=e=>{e.preventDefault();contextRow=+row.dataset.row;const menu=$("#rowMenu");menu.style.left=`${Math.min(e.clientX,innerWidth-185)}px`;menu.style.top=`${Math.min(e.clientY,innerHeight-145)}px`;menu.classList.add("open")}});
   document.querySelectorAll(".note-link").forEach(link=>link.onclick=e=>e.stopPropagation());
