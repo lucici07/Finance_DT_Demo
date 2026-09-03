@@ -1,33 +1,6 @@
 const seed = {
-  "W1": [
-    [
-      1,
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
-  ],
-  "Next 3 Weeks": [
-    [
-      1,
-      "",
-      "",
-      "",
-      "",
-      "",
-      "Not Started",
-      "",
-      "",
-      ""
-    ]
-  ]
+  "W1": [],
+  "Next 3 Weeks": []
 };
 const weeklyHeaders=["No.","Category","Topic","Content","Focal Name","Date","Due Date","Last Update","Status","Next Action","Note"];
 const futureHeaders=["No.","Category","Topic","Content","Focal Name","Priority","Status","Start Date","Due Date","Last Update"];
@@ -37,6 +10,7 @@ let dailyPlans=JSON.parse(localStorage.getItem("dailyPlansDemo")||"{}");
 let pageMeta=JSON.parse(localStorage.getItem("pageMetaDemo")||"{}");
 if(data.Next&&!data["Next 3 Weeks"]){const renamed={};for(const [name,rows] of Object.entries(data))renamed[name==="Next"?"Next 3 Weeks":name]=rows;data=renamed;if(pageMeta.Next){pageMeta["Next 3 Weeks"]=pageMeta.Next;delete pageMeta.Next}futureSheets.delete("Next");futureSheets.add("Next 3 Weeks");if(active==="Next")active="Next 3 Weeks"}
 for(const sheet of futureSheets)for(const row of data[sheet]||[]){const legacyId=row.length===8&&String(row[7]).startsWith("task_")?row.pop():null;while(row.length<futureHeaders.length)row.push("");if(!row[6])row[6]="Not Started";if(legacyId)row.push(legacyId)}
+for(const [sheet,rows] of Object.entries(data)){const hs=pageMeta[sheet]?.headers||(futureSheets.has(sheet)?futureHeaders:weeklyHeaders),noIndex=hs.indexOf("No.");data[sheet]=rows.filter(row=>hs.some((name,index)=>index!==noIndex&&String(row[index]??"").trim()&&!(name==="Status"&&row[index]==="Not Started")))}
 const $=s=>document.querySelector(s), tbody=$("#tbody"), thead=$("#thead");
 function headers(sheet=active){return pageMeta[sheet]?.headers||(futureSheets.has(sheet)?futureHeaders:weeklyHeaders)}
 function statusIndex(sheet=active){return headers(sheet).indexOf("Status")}
@@ -72,12 +46,13 @@ function render(){
   const hs=headers(), si=statusIndex(), q=$("#search").value.toLowerCase(), sf=$("#statusFilter").value;
   thead.innerHTML=`<tr>${hs.map((h,i)=>`<th data-column="${i}" title="Right-click to manage this column">${esc(h)}<span class="resize-handle" data-resize="${i}"></span><button class="column-insert" data-insert-column="${i+1}" title="Add column here">＋</button></th>`).join("")}</tr>`;
   const rows=data[active].filter(r=>(!q||r.some(v=>String(v).toLowerCase().includes(q)))&&(!sf||r[si]===sf));
-  tbody.innerHTML=rows.map(r=>{const ri=data[active].indexOf(r);return `<tr data-row="${ri}" class="${isDailyOrphan(r)?"daily-orphan":""}">${r.slice(0,hs.length).map((v,ci)=>{const h=hs[ci],priority=h==="Priority"?` priority-cell priority-${String(v).toLowerCase()}`:"",selected=selectedCell?.sheet===active&&selectedCell.row===ri&&selectedCell.col===ci?" selected-cell":"";return `<td data-col="${ci}" class="${priority}${selected}">${["Date","Due Date","Last Update"].includes(h)?`<span class="date-chip">${esc(v)}</span>`:ci===si?badge(v):h==="Note"?`${linkify(v)}${isDailyOrphan(r)?'<span class="orphan-label">Daily Todo removed</span>':""}`:esc(v)}</td>`}).join("")}</tr>`}).join("");
+  tbody.innerHTML=rows.map(r=>{const ri=data[active].indexOf(r);return `<tr data-row="${ri}" class="${isDailyOrphan(r)?"daily-orphan":""}">${r.slice(0,hs.length).map((v,ci)=>{const h=hs[ci],priority=h==="Priority"?` priority-cell priority-${String(v).toLowerCase()}`:"",selected=selectedCell?.sheet===active&&selectedCell.row===ri&&selectedCell.col===ci?" selected-cell":"";return `<td data-col="${ci}" class="${priority}${selected}">${["Date","Due Date","Last Update"].includes(h)?`<span class="date-chip">${esc(v)}</span>`:ci===si?badge(v):h==="Note"?`${linkify(v)}${isDailyOrphan(r)?'<span class="orphan-label">Daily Todo removed</span>':""}`:esc(v)}</td>`}).join("")}</tr>`}).join("")+`<tr class="empty-add-row" data-empty-row="${data[active].length}">${hs.map((_,ci)=>`<td data-empty-col="${ci}" class="${selectedCell?.sheet===active&&selectedCell.row===data[active].length&&selectedCell.col===ci?"selected-cell":""}">${ci===0?'<button id="addBlankRow" title="Add row">＋</button>':""}</td>`).join("")}</tr>`;
   const all=data[active], done=all.filter(r=>r[si]==="Done").length;
   $("#metrics").innerHTML=`<div class="metric"><b>${all.length}</b><span>items</span></div><div class="metric"><b>${done}</b><span>done</span></div>`;
   $("#sheetTitle").textContent=sheetWeekTitle(active);
   if(si<0)$("#statusFilter").value="";$("#statusFilter").disabled=si<0;
   document.querySelectorAll("tbody tr[data-row]").forEach(row=>{row.querySelectorAll("td[data-col]").forEach(td=>{td.onclick=e=>{e.stopPropagation();selectedRow=+row.dataset.row;selectedCell={sheet:active,row:selectedRow,col:+td.dataset.col};document.querySelectorAll("tbody td.selected-cell").forEach(cell=>cell.classList.remove("selected-cell"));td.classList.add("selected-cell")};td.ondblclick=e=>{e.stopPropagation();const item=data[active][+row.dataset.row];if(isDailyOrphan(item)){if(confirm("The linked Daily Todo was deleted. Add it back to Calendar?"))restoreDailyFromRow(item);return}openDrawer(+row.dataset.row)}});row.oncontextmenu=e=>{e.preventDefault();contextRow=+row.dataset.row;const menu=$("#rowMenu");menu.style.left=`${Math.min(e.clientX,innerWidth-185)}px`;menu.style.top=`${Math.min(e.clientY,innerHeight-145)}px`;menu.classList.add("open")}});
+  document.querySelectorAll("[data-empty-col]").forEach(td=>{td.onclick=e=>{e.stopPropagation();selectedRow=null;selectedCell={sheet:active,row:data[active].length,col:+td.dataset.emptyCol};document.querySelectorAll("tbody td.selected-cell").forEach(cell=>cell.classList.remove("selected-cell"));td.classList.add("selected-cell")};td.ondblclick=e=>{e.stopPropagation();openDrawer(null)}});$("#addBlankRow").onclick=e=>{e.stopPropagation();openDrawer(null)};
   document.querySelectorAll(".note-link").forEach(link=>link.onclick=e=>e.stopPropagation());
   document.querySelectorAll("th[data-column]").forEach(th=>th.oncontextmenu=e=>{e.preventDefault();contextColumn=+th.dataset.column;openColumnMenu(e)});
   document.querySelectorAll("[data-insert-column]").forEach(button=>button.onclick=e=>{e.preventDefault();e.stopPropagation();insertColumnAt(+button.dataset.insertColumn)});
@@ -91,7 +66,7 @@ function nextWeekName(){const numbers=Object.keys(data).map(name=>Number(name.ma
 function updateNewPagePreview(){const name=$("#newPageForm").elements.pageName.value.trim(),preview=$("#newPageDatePreview"),match=name.match(/^W(\d+)$/i),date=match?inferredWeekDate(name):null;preview.textContent=date?`Planned range: ${workWeekTitle(date,`Week ${match[1]}`).split(" · ")[1]}`:"Custom page names do not receive an automatic date range."}
 function createSheet(){const form=$("#newPageForm");form.reset();form.elements.pageName.value=uniqueName(nextWeekName());updateNewPagePreview();$("#newPageDialog").showModal();setTimeout(()=>form.elements.pageName.select(),0)}
 $("#newPageForm").elements.pageName.oninput=updateNewPagePreview;$("#closeNewPage").onclick=$("#cancelNewPage").onclick=()=>$("#newPageDialog").close();
-$("#newPageForm").onsubmit=e=>{e.preventDefault();const name=e.currentTarget.elements.pageName.value.trim();if(!name)return;if(data[name])return alert("A page with this name already exists.");const date=inferredWeekDate(name),row=weeklyHeaders.map((_,index)=>index===0?1:"");data[name]=[row];pageMeta[name]={id:uid("week"),headers:[...weeklyHeaders],...(date?{weekStart:dateKey(date)}:{})};active=name;save();$("#newPageDialog").close();tabs();render()};
+$("#newPageForm").onsubmit=e=>{e.preventDefault();const name=e.currentTarget.elements.pageName.value.trim();if(!name)return;if(data[name])return alert("A page with this name already exists.");const date=inferredWeekDate(name);data[name]=[];pageMeta[name]={id:uid("week"),headers:[...weeklyHeaders],...(date?{weekStart:dateKey(date)}:{})};active=name;save();$("#newPageDialog").close();tabs();render()};
 function openTabMenu(e,name){e.stopPropagation();menuSheet=name;const menu=$("#tabMenu");menu.style.left=`${Math.min(e.clientX,innerWidth-150)}px`;menu.style.bottom=`${innerHeight-e.clientY+8}px`;menu.classList.add("open")}
 function closeTabMenu(){$("#tabMenu").classList.remove("open");menuSheet=null}
 $("#renameTab").onclick=()=>{if(!menuSheet)return;const old=menuSheet,name=prompt("Rename page:",old)?.trim();if(!name||name===old)return closeTabMenu();if(data[name])return alert("A page with this name already exists.");const rebuilt={};for(const [key,value] of Object.entries(data))rebuilt[key===old?name:key]=value;data=rebuilt;pageMeta[name]=pageMeta[old]||{id:uid("week")};delete pageMeta[old];for(const todos of Object.values(dailyPlans))for(const todo of todos)if(todo.syncedTo===old)todo.syncedTo=name;if(futureSheets.delete(old))futureSheets.add(name);if(active===old)active=name;save();closeTabMenu();tabs();render()};
