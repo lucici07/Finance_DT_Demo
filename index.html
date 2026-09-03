@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finance DT Weekly Plan</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="details.css?v=10" />
+  <link rel="stylesheet" href="details.css?v=11" />
   <link rel="stylesheet" href="calendar.css?v=6" />
   <link rel="stylesheet" href="dashboard.css?v=11" /><link rel="stylesheet" href="demo.css" />
 </head>
@@ -35,6 +35,7 @@
       <div class="toolbar">
         <div class="history-controls"><button id="undoBtn" title="Undo (Command/Ctrl + Z)" disabled>↶</button><button id="redoBtn" title="Redo (Command/Ctrl + Shift + Z)" disabled>↷</button></div>
         <button id="refreshBtn" title="Refresh Weekly Plan">↻ Refresh</button>
+        <button id="resetBtn" title="Reset to the original default data">↺ Reset</button>
         <div class="search">⌕ <input id="search" placeholder="Search tasks, owners, notes…" /></div>
         <select id="statusFilter"><option value="">All statuses</option><option>Done</option><option>WIP</option><option>Not Started</option></select>
         <button id="exportBtn">⇩ Export Excel</button><label class="button">⇧ Import Excel<input id="importInput" type="file" accept=".xlsx,.xls" hidden></label>
@@ -69,6 +70,6 @@
   <dialog id="monthPicker" class="month-picker"><form method="dialog"><button class="x" value="cancel">×</button><p class="eyebrow">GO TO DATE</p><h2>Choose month and year</h2><div class="wheel-picker"><label>Month<select id="monthWheel" size="5"></select></label><label>Year<select id="yearWheel" size="5"></select></label></div><div class="dialog-actions"><button value="cancel">Cancel</button><button value="default" id="applyMonth" class="primary">Apply</button></div></form></dialog>
   <dialog id="privacyDialog"><form method="dialog"><button class="x">×</button><p class="eyebrow">AI & DATA</p><h2>Privacy settings</h2><label class="toggleline"><span><b>Use connected AI</b><small>Send the current visible sheet to your company-controlled server.</small></span><input id="remoteToggle" type="checkbox" disabled></label><div class="policy"><b>Recommended production setup</b><p>Keep the API key on the server, use SSO and role-based access, send only necessary rows, disable model response storage, and confirm your company’s retention requirements.</p></div><button class="primary" value="default">Done</button></form></dialog>
   <script src="vendor/exceljs.min.js"></script>
-  <script src="app.js?v=12"></script>
+  <script src="app.js?v=13"></script>
 </body>
 </html>
